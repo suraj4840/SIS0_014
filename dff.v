@@ -5,7 +5,7 @@ timescale 1ns / 1ps
 // 
 // Create Date: 07/21/2023 09:46:48 AM
 // Design Name: 
-// Module Name: siso_shift_reg
+// Module Name: D_ff
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -20,16 +20,17 @@ timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module siso_shift_reg(clk,rst,in,Q);
-input clk,rst,in;
-output  Q;
-wire [2:0] q;
+module D_ff(clk,rst,d,q);
+input clk,rst,d;
+output reg q;
 
-D_ff d1(clk,rst,in,q[0]);
-D_ff d2(clk,rst,q[0],q[1]);
-D_ff d3(clk,rst,q[1],q[2]);
-D_ff d4(clk,rst,q[2],Q);
-
-
-
+always @(posedge clk,posedge rst)
+begin
+      if(rst)
+          q<= 1'b0;
+      else 
+          q<=d;
+end 
+             
 endmodule
+
